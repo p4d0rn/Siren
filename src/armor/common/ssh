@@ -1,0 +1,8 @@
+.ssh/known_hosts
+.ssh/id_rsa
+id_rsa
+.ssh/id_rsa.pub
+.ssh/id_dsa
+id_dsa
+.ssh/id_dsa.pub
+.ssh/authorized_keys

