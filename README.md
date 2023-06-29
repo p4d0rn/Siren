@@ -69,21 +69,25 @@ Web应用背后同样也可能隐藏着致命的漏洞，该漏洞扫描器旨�
 
 > Usage: scan.py [OPTIONS]
 >
->   A tiny little scanner for vul detection
+> A tiny little scanner for vul detection
 >
 > Options:
->   -u, --url TEXT                  url to scan
->   -n, --num INTEGER               process number in scanning  [default: 1]
->   -p, --program [all|php|java]    specify the backend program language when
->                                   searching directories
->   -c, --custom [Fastjson|Flink|Solr|Struts2|ThinkPHP]
->                                   Customization Mode Else Traditional Mode
->   --dir-brute                     discover potential web path
->   --risk [0|1|2|3|4|5|6|7|8|9|10]
->                                   The higher risk, the faster dirsearch work
->                                   [default: 5]
->   -l, --show                      list all the vuls supported
->   --help                          Show this message and exit.
+>
+> -u, --url TEXT                  url to scan
+>
+> -n, --num INTEGER               process number in scanning  [default: 1]
+>
+> -p, --program [all|php|java]    specify the backend program language when searching directories
+>
+> -c, --custom [Fastjson|Flink|Solr|Struts2|ThinkPHP] Customization Mode Else Traditional Mode
+>
+> --dir-brute                     discover potential web path
+>
+> --risk [0|1|2|3|4|5|6|7|8|9|10] The higher risk, the faster dirsearch work [default: 5]
+>
+> -l, --show                      list all the vuls supported
+>
+> --help                          Show this message and exit.
 
 * -u, --url            指定扫描的url
 * -n, --num          指定目录扫描和SQL盲注的进程数
