@@ -124,66 +124,7 @@ docker run -it --name Siren siren /bin/bash
 
 ## 目录结构
 
-> |   Dockerfile
-> |   requirements.txt    项目依赖
-> |   scan.py    入口文件
-> |
-> +---armor         目录扫描字典
-> |   +---common  常见路径
-> |   |       log           日志文件
-> |   |       source      源码泄露
-> |   |       ssh           ssh配置文件
-> |   |       traversal   目录遍历
-> |   |
-> |   +---java    Java相关目录
-> |   |       java_web
-> |   |       jsp
-> |   |       spring
-> |   |       swagger
-> |   |       tomcat
-> |   |
-> |   +---others   其他类型目录
-> |   |       asp
-> |   |
-> |   \---php   PHP相关目录
-> |           php
-> |
-> +---Drivers  Chrome驱动器
-> |
-> +---lib
-> |   +---connection   连接模块
-> |   |   |   dns.py               DNS缓存开关
-> |   |   |   HttpEntity.py      封装HTTP请求类
-> |   |   |   rate.py               请求速率控制开关
-> |   |
-> |   +---help   工具模块
-> |   |   |   dnslog.py       DNSlog外带数据
-> |   |   |   fingerprint.py  指纹识别
-> |   |   |   parser.py         XSS注入点提取
-> |   |   |   settings.py      全局设置
-> |
-> +---sniper
-> |   |   crawl.py          网页爬取
-> |   |   dirsearch.py    目录扫描
-> |   |   specific.py      专属漏洞扫描入口
-> |   |   sqli.py            SQL注入检测
-> |   |   xss.py             XSS检测
-> |   |
-> |   +---java  Java专属漏洞
-> |   |   |   Fastjson.py
-> |   |   |   Flink.py
-> |   |   |   Solr.py
-> |   |   |   Struts2.py
-> |   |   |
-> |   |   +---scripts  payload文件
-> |   |   |       fastjson
-> |   |   |       s2-046
-> |   |   |       s2-061
-> |   |
-> |   +---php  PHP专属漏洞
-> |   |   |   ThinkPHP.py
-> |
-> \---test  模块测试
+![](imgs/structure.png)
 
 ## 执行流程
 
